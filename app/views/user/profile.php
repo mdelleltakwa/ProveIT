@@ -32,7 +32,9 @@
                 <?= $initial ?>
             <?php endif; ?>
         </div>
-
+        <!--<div style="opacity:.6;font-size:12px;margin-top:6px;">
+            avatar_url = <?= htmlspecialchars($user['avatar_url'] ?? 'NULL') ?>
+        </div> -->
         <div class="pi-profile-info" style="flex:1;">
             <div class="flex items-center gap-2 flex-wrap">
                 <h2><?= htmlspecialchars($user['name']) ?></h2>

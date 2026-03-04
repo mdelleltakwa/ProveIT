@@ -18,7 +18,23 @@ class User {
         $stmt->execute([$email]);
         return $stmt->fetch();
     }
+    public function addXP($userId, $amount, $reason) {
+    $userId = (int)$userId;
+    $amount = (int)$amount;
 
+    // Update XP
+    $stmt = $this->conn->prepare("UPDATE users SET xp = xp + :amount WHERE id = :id");
+    $stmt->bindValue(':amount', $amount, PDO::PARAM_INT);
+    $stmt->bindValue(':id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    // Log XP
+    $stmt = $this->conn->prepare("INSERT INTO xp_log (user_id, amount, reason) VALUES (:id, :amount, :reason)");
+    $stmt->bindValue(':id', $userId, PDO::PARAM_INT);
+    $stmt->bindValue(':amount', $amount, PDO::PARAM_INT);
+    $stmt->bindValue(':reason', $reason, PDO::PARAM_STR);
+    $stmt->execute();
+}
     public function getById($id) {
         $stmt = $this->conn->prepare("SELECT * FROM users WHERE id=?");
         $stmt->execute([$id]);
