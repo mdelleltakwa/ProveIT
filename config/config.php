@@ -8,12 +8,25 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 
 // Site
-define('BASE_URL', 'http://localhost/proveit/');
+// define('BASE_URL', 'http://localhost/ProveIT/');
+
+define(
+    'BASE_URL',
+    "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) . "/"
+);
+
 define('SITE_NAME', 'ProveIt');
 
 // Roles
-define('DEFAULT_ROLE', 'user');
-define('ADMIN_ROLE', 'admin');
+define('ROLE_ADMIN', 'admin');
+define('ROLE_ORGANISATEUR', 'organisateur');
+define('ROLE_CANDIDAT', 'candidat');
+
+// Role helpers
+function is_admin() { return ($_SESSION['user']['role'] ?? '') === 'admin'; }
+function is_organisateur() { return ($_SESSION['user']['role'] ?? '') === 'organisateur'; }
+function is_candidat() { return ($_SESSION['user']['role'] ?? '') === 'candidat'; }
+function current_role() { return $_SESSION['user']['role'] ?? ''; }
 
 // XP rewards
 define('XP_JOIN', 20);        // Join a hackathon
