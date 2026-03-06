@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modifier le Hackathon – ProveIt</title>
+    <title>Modifier Hackathon – ProveIt</title>
     <link rel="icon" type="image/png" href="<?= BASE_URL ?>public/images/logo.png">
     <link rel="stylesheet" href="<?= BASE_URL ?>public/css/app.css">
 </head>
@@ -28,14 +28,14 @@
                 <input type="text" id="category" name="category" class="pi-input" value="<?= htmlspecialchars($hackathon['category']) ?>" required>
             </div>
             <div class="pi-form-group">
-                <label for="deadline">Date limite</label>
+                <label for="deadline">Deadline</label>
                 <input type="datetime-local" id="deadline" name="deadline" class="pi-input" value="<?= date('Y-m-d\TH:i', strtotime($hackathon['deadline'])) ?>">
             </div>
             <div class="pi-form-group">
-                <label for="image">URL de l'image de couverture</label>
+                <label for="image">Image de couverture</label>
                 <input type="url" id="image" name="image" class="pi-input" value="<?= htmlspecialchars($hackathon['image'] ?? '') ?>">
             </div>
-            <button type="submit" class="pi-btn pi-btn-primary pi-btn-block">Mettre à jour le Hackathon</button>
+            <button type="submit" class="pi-btn pi-btn-primary pi-btn-block">Mettre à jour</button>
         </form>
     </div>
 </div>

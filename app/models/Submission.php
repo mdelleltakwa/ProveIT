@@ -15,6 +15,7 @@ class Submission {
         return $stmt->execute([$hackathon_id, $user_id, $title, $description, $github_link, $demo_link]);
     }
 
+    // All submissions for a hackathon (for organisateur view)
     public function getAllByHackathon($hackathon_id) {
         $stmt = $this->conn->prepare("
             SELECT s.*, u.name AS user_name, u.avatar_url, u.xp AS user_xp,
@@ -24,6 +25,31 @@ class Submission {
             ORDER BY votes_count DESC, s.id DESC
         ");
         $stmt->execute([$hackathon_id]);
+        return $stmt->fetchAll();
+    }
+
+    // Get a candidat's own submission in a hackathon
+    public function getByUserAndHackathon($user_id, $hackathon_id) {
+        $stmt = $this->conn->prepare("
+            SELECT s.*, u.name AS user_name
+            FROM submissions s JOIN users u ON s.user_id = u.id
+            WHERE s.user_id = ? AND s.hackathon_id = ?
+            LIMIT 1
+        ");
+        $stmt->execute([$user_id, $hackathon_id]);
+        return $stmt->fetch() ?: null;
+    }
+
+    // Other submissions in hackathon: only title + author (no details) for candidat view
+    public function getOthersInHackathon($hackathon_id, $exclude_user_id) {
+        $stmt = $this->conn->prepare("
+            SELECT s.id, s.title, s.hackathon_id, s.user_id, u.name AS user_name, u.avatar_url,
+            (SELECT COUNT(*) FROM votes v WHERE v.submission_id = s.id) AS votes_count
+            FROM submissions s JOIN users u ON s.user_id = u.id
+            WHERE s.hackathon_id = ? AND s.user_id != ?
+            ORDER BY votes_count DESC, s.id DESC
+        ");
+        $stmt->execute([$hackathon_id, $exclude_user_id]);
         return $stmt->fetchAll();
     }
 

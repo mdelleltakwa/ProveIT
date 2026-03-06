@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lancer un Hackathon – ProveIt</title>
+    <title>Créer un Hackathon – ProveIt</title>
     <link rel="icon" type="image/png" href="<?= BASE_URL ?>public/images/logo.png">
     <link rel="stylesheet" href="<?= BASE_URL ?>public/css/app.css">
 </head>
@@ -17,33 +17,33 @@
             <?= csrf_field() ?>
             <div class="pi-form-group">
                 <label for="title">Titre</label>
-                <input type="text" id="title" name="title" class="pi-input" placeholder="ex. Défi Chatbot IA" required>
+                <input type="text" id="title" name="title" class="pi-input" placeholder="Ex: AI Chatbot Challenge" required>
             </div>
             <div class="pi-form-group">
                 <label for="description">Description</label>
-                <textarea id="description" name="description" class="pi-textarea" placeholder="Décrivez le défi, les règles, et ce que les participants doivent construire..." required></textarea>
+                <textarea id="description" name="description" class="pi-textarea" placeholder="Décrivez le challenge, les règles..." required></textarea>
             </div>
             <div class="pi-form-group">
                 <label for="category">Catégorie</label>
-                <input type="text" id="category" name="category" class="pi-input" placeholder="ex. IA, Web, Mobile, Design" required>
+                <input type="text" id="category" name="category" class="pi-input" placeholder="Ex: AI, Web, Mobile, Design" required>
             </div>
             <div class="pi-form-group">
-                <label>Date limite</label>
+                <label>Deadline</label>
                 <div class="flex gap-2 items-center">
                     <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.85rem;color:var(--text-secondary);text-transform:none;letter-spacing:0;">
                         <input type="radio" name="deadline_type" value="48h" checked> Auto 48h
                     </label>
                     <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.85rem;color:var(--text-secondary);text-transform:none;letter-spacing:0;">
-                        <input type="radio" name="deadline_type" value="custom"> Personnalisé
+                        <input type="radio" name="deadline_type" value="custom"> Personnalisée
                     </label>
                 </div>
                 <input type="datetime-local" id="deadline" name="deadline" class="pi-input mt-1" style="display:none;">
             </div>
             <div class="pi-form-group">
-                <label for="image">URL de l'image de couverture <span class="text-xs text-muted">(optionnel)</span></label>
+                <label for="image">Image de couverture <span class="text-xs text-muted">(optionnel)</span></label>
                 <input type="url" id="image" name="image" class="pi-input" placeholder="https://...">
             </div>
-            <button type="submit" class="pi-btn pi-btn-primary pi-btn-block pi-btn-lg">Lancer un Hackathon</button>
+            <button type="submit" class="pi-btn pi-btn-primary pi-btn-block pi-btn-lg">Lancer le Hackathon</button>
         </form>
     </div>
 </div>
