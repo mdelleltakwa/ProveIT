@@ -20,7 +20,7 @@ class Hackathon {
     }
 
     public function getFiltered($keyword = '', $category = '', $sort = 'newest', $status = '') {
-        $sql = "SELECT h.*,
+        $sql = "SELECT DISTINCT h.*,
             (SELECT COUNT(*) FROM participations p WHERE p.hackathon_id = h.id) AS participants_count,
             (SELECT COUNT(*) FROM submissions s WHERE s.hackathon_id = h.id) AS submissions_count,
             u.name AS creator_name
@@ -71,6 +71,13 @@ class Hackathon {
             FROM hackathons h LEFT JOIN users u ON h.created_by = u.id WHERE h.id=?"
         );
         $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
+
+    // New method to prevent duplicates
+    public function getByTitleAndCreator($title, $created_by) {
+        $stmt = $this->conn->prepare("SELECT * FROM hackathons WHERE title = ? AND created_by = ? LIMIT 1");
+        $stmt->execute([$title, $created_by]);
         return $stmt->fetch();
     }
 

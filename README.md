@@ -1,86 +1,51 @@
-# ProveIt – Hackathon Platform
+# ProveIt – Plateforme Hackathon
 
-**ProveIt** is a modern web platform for organizing and participating in 48-hour hackathons. Features a gamification system with XP, badges, and a global leaderboard.
+**ProveIt** est une plateforme web de hackathons de 48h avec un système de gamification (XP, badges, classement).
 
-## Features
+## Rôles
 
-### Users
-- Registration & Login with CSRF protection
-- Profile with XP, rank, badges, and project history
-- Edit profile (name, email, bio, avatar, password)
+### 🎯 Organisateur
+- Créer / modifier / supprimer des hackathons
+- Consulter TOUS les projets soumis avec détails complets
+- Voter sur les projets
+- Voir les statistiques (graphiques, classements)
+- **NE PEUT PAS** participer aux hackathons
 
-### Hackathons
-- Create hackathons with auto 48h deadline or custom deadline
-- Search, filter by category/status, sort by newest/popular/ending
-- Join hackathons (+20 XP)
-- Real-time countdown timer display
+###   Candidat
+- Consulter les hackathons disponibles
+- Rejoindre un hackathon (+20 XP)
+- Soumettre UN projet par hackathon (+30 XP)
+- Voir uniquement SON propre projet en détail
+- **NE VOIT PAS** les projets des autres candidats (compétition)
+- Voter pour **1 seul** candidat par hackathon
+- Commenter son propre projet
 
-### Submissions
-- Submit projects with title, description, GitHub & demo links (+30 XP)
-- Ranked by community votes
-- Edit/delete own submissions
+### ⚙️ Admin
+- Dashboard de gestion complet
+- Gérer utilisateurs, hackathons, projets, commentaires
 
-### Voting & Comments
-- One vote per user per submission
-- Submission owners receive +10 XP per vote
-- Comment on any submission
-
-### Gamification (XP System)
+## Gamification (Candidats)
 | Action | XP |
 |---|---|
-| Join a hackathon | +20 |
-| Submit a project | +30 |
-| Receive a vote | +10 |
-| Top 3 finish | +50 |
-| Win a hackathon | +100 |
+| Rejoindre un hackathon | +20 |
+| Soumettre un projet | +30 |
+| Recevoir un vote | +10 |
+| Top 3 | +50 |
+| Gagner | +100 |
 
-### Badges
-🚀 First Steps · 📦 Builder · 🥉 Top 3 · 🏆 Champion · 👍 Supporter · 🔥 On Fire · ⭐ Rising Star · 💎 Diamond
+**Rangs**: Rookie → Coder → Hacker → Expert → Legend
 
-### Ranks
-- Rookie (0 XP) → Coder (50) → Hacker (200) → Expert (500) → Legend (1000)
+## Installation
 
-### Admin
-- Dashboard with stats and charts
-- Manage users, hackathons, submissions, comments
+1. Importer `database/proveit.sql` dans MySQL
+2. Modifier `config/config.php` (DB_HOST, DB_NAME, DB_USER, DB_PASS)
+3. Démarrer Apache + MySQL (XAMPP/WAMP)
+4. Aller sur `http://localhost/proveit-v2/`
 
-## Tech Stack
-- **Backend:** PHP 8 (OOP, MVC, no framework)
-- **Database:** MySQL with PDO (prepared statements)
-- **Frontend:** Custom CSS (dark theme), Chart.js
-- **Security:** CSRF tokens, password hashing, XSS prevention
+### Comptes par défaut (mot de passe: admin)
+- Admin: `admin@proveit.com`
+- Organisateur: `orga@proveit.com`
+- Candidat: `candidat@proveit.com`
 
-## Setup
-
-1. **Clone** the repository
-2. **Import** `database/proveit.sql` into MySQL
-3. **Edit** `config/config.php` with your DB credentials
-4. **Start** Apache + MySQL (XAMPP/WAMP)
-5. **Navigate** to `http://localhost/proveit/`
-
-### Default Admin
-- Email: `admin@proveit.com`
-- Password: `admin`
-
-## Project Structure
-```
-/proveit
-├── index.php                  # Front controller
-├── config/config.php          # Configuration, CSRF, helpers
-├── database/proveit.sql       # Database schema
-├── app/
-│   ├── controllers/           # MVC Controllers
-│   ├── models/                # Database models
-│   └── views/                 # PHP templates
-│       ├── partials/nav.php   # Shared navigation
-│       ├── user/              # Auth, profile, leaderboard
-│       ├── hackathon/         # List, detail, create, edit
-│       ├── submission/        # Edit
-│       └── admin/             # Dashboard
-└── public/
-    ├── css/app.css            # Main stylesheet
-    └── images/logo.png        # Logo
-```
-
-## Authors
+## Auteurs
 Mohammed Rami Abbassi / Takwa Mdallel / Chahd Benslimen

@@ -21,6 +21,14 @@ class CommentController {
             $hackathon_id = intval($_POST['hackathon_id'] ?? 0);
 
             if ($submission_id && $content !== '') {
+                // Candidat can only comment on their own submission
+                if (is_candidat()) {
+                    $submission = (new Submission())->getById($submission_id);
+                    if (!$submission || (int)$submission['user_id'] !== (int)$_SESSION['user']['id']) {
+                        header('Location: index.php?controller=Hackathon&action=detail&id=' . $hackathon_id);
+                        exit;
+                    }
+                }
                 $this->commentModel->create($submission_id, $_SESSION['user']['id'], $content);
             }
             if ($hackathon_id) {
@@ -38,8 +46,7 @@ class CommentController {
             $comment = $this->commentModel->getById($id);
             if ($comment) {
                 $isAuthor = (int)$comment['user_id'] === (int)$_SESSION['user']['id'];
-                $isAdmin = ($_SESSION['user']['role'] ?? '') === 'admin';
-                if ($isAuthor || $isAdmin) {
+                if ($isAuthor || is_admin() || is_organisateur()) {
                     $this->commentModel->delete($id);
                 }
             }
