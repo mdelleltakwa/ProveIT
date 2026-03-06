@@ -19,6 +19,7 @@ class AdminController {
         $this->commentModel = new Comment();
         $this->voteModel = new Vote();
 
+        // check if session is started
         if (session_status() === PHP_SESSION_NONE) session_start();
         if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
             header('Location: index.php');
@@ -49,7 +50,9 @@ class AdminController {
     }
 
     public function deleteHackathon() {
-        if (isset($_GET['id'])) $this->hackathonModel->delete(intval($_GET['id']));
+        if (isset($_GET['id'])) {
+            $this->hackathonModel->delete(intval($_GET['id']));
+        }
         header('Location: index.php?controller=Admin&action=dashboard');
         exit;
     }

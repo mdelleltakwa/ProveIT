@@ -23,7 +23,7 @@ $currentController = $_GET['controller'] ?? '';
 
             <a href="index.php?controller=User&action=leaderboard"
                class="<?= $currentAction === 'leaderboard' ? 'active' : '' ?>">
-                Leaderboard
+                Classement
             </a>
 
             <?php if ($currentUser['role'] === 'admin'): ?>
@@ -67,7 +67,7 @@ $currentController = $_GET['controller'] ?? '';
             <!-- Logout -->
             <a href="index.php?controller=User&action=logout"
                class="pi-btn pi-btn-ghost pi-btn-sm">
-                Logout
+                Déconnexion
             </a>
 
         </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,10 +15,10 @@
         <div class="flex items-center justify-between flex-wrap gap-2">
             <div>
                 <h1>Hack<span class="accent">athons</span></h1>
-                <p>48-hour challenges. Build fast. Prove yourself.</p>
+                <p>Défis de 48 heures. Construisez rapidement. Prouvez-vous.</p>
             </div>
             <a href="index.php?controller=Hackathon&action=create" class="pi-btn pi-btn-primary pi-btn-lg">
-                + Launch Hackathon
+                + Lancer un Hackathon
             </a>
         </div>
     </div>
@@ -27,30 +27,30 @@
     <form method="GET" action="index.php" class="pi-filter-bar">
         <input type="hidden" name="controller" value="Hackathon">
         <input type="hidden" name="action" value="list">
-        <input type="text" name="search" class="pi-input" placeholder="Search hackathons..." value="<?= htmlspecialchars($search ?? '') ?>">
+        <input type="text" name="search" class="pi-input" placeholder="Rechercher des hackathons..." value="<?= htmlspecialchars($search ?? '') ?>">
         <select name="category" class="pi-select">
-            <option value="">All categories</option>
+            <option value="">Toutes les catégories</option>
             <?php foreach ($categories ?? [] as $cat): ?>
                 <option value="<?= htmlspecialchars($cat) ?>" <?= (isset($category) && $category === $cat) ? 'selected' : '' ?>><?= htmlspecialchars($cat) ?></option>
             <?php endforeach; ?>
         </select>
         <select name="status" class="pi-select">
-            <option value="" <?= ($status ?? '') === '' ? 'selected' : '' ?>>All status</option>
-            <option value="active" <?= ($status ?? '') === 'active' ? 'selected' : '' ?>>Active</option>
-            <option value="ended" <?= ($status ?? '') === 'ended' ? 'selected' : '' ?>>Ended</option>
+            <option value="" <?= ($status ?? '') === '' ? 'selected' : '' ?>>Tous les statuts</option>
+            <option value="active" <?= ($status ?? '') === 'active' ? 'selected' : '' ?>>Actif</option>
+            <option value="ended" <?= ($status ?? '') === 'ended' ? 'selected' : '' ?>>Terminé</option>
         </select>
         <select name="sort" class="pi-select">
-            <option value="newest" <?= ($sort ?? '') === 'newest' ? 'selected' : '' ?>>Newest</option>
-            <option value="popular" <?= ($sort ?? '') === 'popular' ? 'selected' : '' ?>>Most popular</option>
-            <option value="ending" <?= ($sort ?? '') === 'ending' ? 'selected' : '' ?>>Ending soon</option>
+            <option value="newest" <?= ($sort ?? '') === 'newest' ? 'selected' : '' ?>>Plus récent</option>
+            <option value="popular" <?= ($sort ?? '') === 'popular' ? 'selected' : '' ?>>Plus populaire</option>
+            <option value="ending" <?= ($sort ?? '') === 'ending' ? 'selected' : '' ?>>Se terminant bientôt</option>
         </select>
-        <button type="submit" class="pi-btn pi-btn-outline">Filter</button>
+        <button type="submit" class="pi-btn pi-btn-outline">Filtrer</button>
     </form>
 
     <!-- Hackathon Grid -->
     <?php if (empty($hackathons)): ?>
         <div class="pi-card text-center" style="padding:3rem">
-            <p class="text-secondary">No hackathons found. Be the first to launch one!</p>
+            <p class="text-secondary">Aucun hackathon trouvé. Soyez le premier à en lancer un !</p>
         </div>
     <?php else: ?>
     <div class="pi-hackathon-grid">
@@ -69,8 +69,8 @@
                 <span class="pi-timer <?= $timerClass ?>">
                     <?= $timerClass === 'ended' ? '⏹' : '⏱' ?> <?= htmlspecialchars($timeInfo['text']) ?>
                 </span>
-                <span class="meta-item">👥 <?= (int)($h['participants_count'] ?? 0) ?> joined</span>
-                <span class="meta-item">📦 <?= (int)($h['submissions_count'] ?? 0) ?> projects</span>
+                <span class="meta-item">👥 <?= (int)($h['participants_count'] ?? 0) ?> rejoint</span>
+                <span class="meta-item">📦 <?= (int)($h['submissions_count'] ?? 0) ?> projets</span>
             </div>
 
             <?php if (!empty($h['image'])): ?>
@@ -78,17 +78,17 @@
             <?php endif; ?>
 
             <div class="pi-hackathon-footer">
-                <span class="text-xs text-muted">by <?= htmlspecialchars($h['creator_name'] ?? 'Unknown') ?></span>
+                <span class="text-xs text-muted">par <?= htmlspecialchars($h['creator_name'] ?? 'Inconnu') ?></span>
                 <div class="pi-link-group">
                     <?php if (!$timeInfo['ended'] && !$h['has_joined']): ?>
                         <form method="POST" action="index.php?controller=Hackathon&action=join" class="d-inline">
                             <input type="hidden" name="hackathon_id" value="<?= (int)$h['id'] ?>">
-                            <button type="submit" class="pi-btn pi-btn-success pi-btn-sm">Join +<?= XP_JOIN ?>XP</button>
+                            <button type="submit" class="pi-btn pi-btn-success pi-btn-sm">Rejoindre +<?= XP_JOIN ?>XP</button>
                         </form>
                     <?php elseif ($h['has_joined']): ?>
-                        <span class="pi-btn pi-btn-ghost pi-btn-sm" style="color:var(--green);cursor:default;">✓ Joined</span>
+                        <span class="pi-btn pi-btn-ghost pi-btn-sm" style="color:var(--green);cursor:default;">✓ Rejoint</span>
                     <?php endif; ?>
-                    <a href="index.php?controller=Hackathon&action=detail&id=<?= (int)$h['id'] ?>" class="pi-btn pi-btn-outline pi-btn-sm">View →</a>
+                    <a href="index.php?controller=Hackathon&action=detail&id=<?= (int)$h['id'] ?>" class="pi-btn pi-btn-outline pi-btn-sm">Voir →</a>
                 </div>
             </div>
         </div>

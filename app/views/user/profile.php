@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,7 +57,7 @@
                 </div>
                 <div class="pi-profile-stat">
                     <div class="value"><?= count($submissions ?? []) ?></div>
-                    <div class="label">Projects</div>
+                    <div class="label">Projets</div>
                 </div>
                 <div class="pi-profile-stat">
                     <div class="value"><?= count($badges ?? []) ?></div>
@@ -68,7 +68,7 @@
 
         <?php if ($isOwn): ?>
         <div>
-            <a href="index.php?controller=User&action=editProfile" class="pi-btn pi-btn-outline pi-btn-sm">Edit profile</a>
+            <a href="index.php?controller=User&action=editProfile" class="pi-btn pi-btn-outline pi-btn-sm">Modifier le profil</a>
         </div>
         <?php endif; ?>
     </div>
@@ -96,7 +96,7 @@
     <!-- XP History -->
     <?php if (!empty($xpLog) && $isOwn): ?>
     <div class="pi-section animate-in">
-        <div class="pi-section-title">⚡ XP Activity</div>
+        <div class="pi-section-title">⚡ Activité XP</div>
         <div class="pi-card" style="padding:0;">
             <?php foreach ($xpLog as $log): ?>
             <div style="display:flex;align-items:center;justify-content:space-between;padding:0.65rem 1.25rem;border-bottom:1px solid var(--border);">
@@ -111,11 +111,11 @@
     <!-- Submissions -->
     <?php if (!empty($submissions)): ?>
     <div class="pi-section animate-in">
-        <div class="pi-section-title">📦 Projects</div>
+        <div class="pi-section-title">📦 Projets</div>
         <?php foreach ($submissions as $s): ?>
         <div class="pi-submission">
-            <h4><?= htmlspecialchars($s['title'] ?: 'Untitled') ?></h4>
-            <p class="text-xs text-muted mb-1">in <?= htmlspecialchars($s['hackathon_title'] ?? '') ?> · <?= (int)$s['votes_count'] ?> votes</p>
+            <h4><?= htmlspecialchars($s['title'] ?: 'Sans titre') ?></h4>
+            <p class="text-xs text-muted mb-1">dans <?= htmlspecialchars($s['hackathon_title'] ?? '') ?> · <?= (int)$s['votes_count'] ?> votes</p>
             <p class="text-sm text-secondary"><?= htmlspecialchars(mb_substr($s['description'], 0, 200)) ?>...</p>
         </div>
         <?php endforeach; ?>
@@ -126,11 +126,11 @@
     <?php if ($isOwn && $user['role'] !== 'admin'): ?>
     <div class="pi-section animate-in">
         <div class="pi-card" style="border-color:rgba(255,71,87,0.2);">
-            <div class="pi-section-title" style="color:var(--red);">⚠ Danger Zone</div>
-            <p class="text-sm text-secondary mb-2">Permanently delete your account and all your data.</p>
-            <form method="POST" action="index.php?controller=User&action=deleteAccount" onsubmit="return confirm('Are you absolutely sure? This cannot be undone.');">
+            <div class="pi-section-title" style="color:var(--red);">⚠ Zone de danger</div>
+            <p class="text-sm text-secondary mb-2">Supprimer définitivement votre compte et toutes vos données.</p>
+            <form method="POST" action="index.php?controller=User&action=deleteAccount" onsubmit="return confirm('Êtes-vous absolument sûr ? Cela ne peut pas être annulé.');">
                 <?= csrf_field() ?>
-                <button type="submit" class="pi-btn pi-btn-danger pi-btn-sm">Delete my account</button>
+                <button type="submit" class="pi-btn pi-btn-danger pi-btn-sm">Supprimer mon compte</button>
             </form>
         </div>
     </div>

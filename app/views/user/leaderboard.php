@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaderboard – ProveIt</title>
+    <title>Classement – ProveIt</title>
     <link rel="icon" type="image/png" href="<?= BASE_URL ?>public/images/logo.png">
     <link rel="stylesheet" href="<?= BASE_URL ?>public/css/app.css">
 </head>
@@ -14,8 +14,8 @@
 <div class="pi-container pi-container-md">
 
     <div class="pi-page-header animate-in">
-        <h1>🏆 Leader<span class="accent">board</span></h1>
-        <p>Top hackers ranked by XP. Participate, submit, and get voted to climb.</p>
+        <h1>🏆 Classement</h1>
+        <p>Meilleurs hackers classés par XP. Participez, soumettez et votez pour monter.</p>
     </div>
 
     <?php
@@ -92,7 +92,7 @@
 
     <?php if (empty($leaderboard)): ?>
         <div class="pi-card text-center" style="padding:3rem;">
-            <p class="text-muted">No users yet. Be the first to earn XP!</p>
+            <p class="text-muted">Aucun utilisateur encore. Soyez le premier à gagner de l'XP !</p>
         </div>
     <?php endif; ?>
 

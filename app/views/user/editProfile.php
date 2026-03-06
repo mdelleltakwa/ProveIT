@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile – ProveIt</title>
+    <title>Modifier le Profil – ProveIt</title>
     <link rel="icon" type="image/png" href="<?= BASE_URL ?>public/images/logo.png">
     <link rel="stylesheet" href="<?= BASE_URL ?>public/css/app.css">
 </head>
@@ -11,10 +11,10 @@
 <?php require __DIR__ . '/../partials/nav.php'; ?>
 
 <div class="pi-container pi-container-sm">
-    <a href="index.php?controller=User&action=profile" class="pi-btn pi-btn-ghost pi-btn-sm mb-3">← Back</a>
+    <a href="index.php?controller=User&action=profile" class="pi-btn pi-btn-ghost pi-btn-sm mb-3">← Retour</a>
 
     <div class="pi-card animate-in">
-        <h2 style="font-size:1.4rem;font-weight:700;margin-bottom:1.5rem;">Edit Profile</h2>
+        <h2 style="font-size:1.4rem;font-weight:700;margin-bottom:1.5rem;">Modifier le Profil</h2>
 
         <?php if (!empty($error)): ?>
             <div class="pi-alert pi-alert-error"><?= htmlspecialchars($error) ?></div>
@@ -28,7 +28,7 @@
             <?= csrf_field() ?>
 
             <div class="pi-form-group">
-                <label for="name">Name</label>
+                <label for="name">Nom</label>
                 <input type="text" id="name" name="name" class="pi-input"
                        value="<?= htmlspecialchars($user['name']) ?>" required>
             </div>
@@ -42,7 +42,7 @@
             <div class="pi-form-group">
                 <label for="bio">Bio</label>
                 <textarea id="bio" name="bio" class="pi-textarea"
-                          placeholder="Tell us about yourself..."><?= htmlspecialchars($user['bio'] ?? '') ?></textarea>
+                          placeholder="Parlez-nous de vous..."><?= htmlspecialchars($user['bio'] ?? '') ?></textarea>
             </div>
 
             <div class="pi-form-group">
@@ -51,12 +51,12 @@
             </div>
 
             <div class="pi-form-group">
-                <label for="new_password">New Password <span class="text-xs text-muted">(leave blank to keep)</span></label>
+                <label for="new_password">Nouveau mot de passe <span class="text-xs text-muted">(laisser vide pour garder)</span></label>
                 <input type="password" id="new_password" name="new_password" class="pi-input"
-                       placeholder="Min 6 characters">
+                       placeholder="Min 6 caractères">
             </div>
 
-            <button type="submit" class="pi-btn pi-btn-primary pi-btn-block">Save Changes</button>
+            <button type="submit" class="pi-btn pi-btn-primary pi-btn-block">Sauvegarder les modifications</button>
         </form>
     </div>
 </div>
