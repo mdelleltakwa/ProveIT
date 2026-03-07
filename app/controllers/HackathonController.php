@@ -37,9 +37,10 @@ class HackathonController {
         $categories = $this->hackathonModel->getCategories();
         $currentUserId = (int)$_SESSION['user']['id'];
 
-        foreach ($hackathons as &$h) {
-            $h['has_joined'] = $this->hackathonModel->hasJoined($h['id'], $currentUserId);
-            $h['time_info'] = time_remaining($h['deadline']);
+        // Fix: Remove reference to avoid side effects
+        foreach ($hackathons as $key => $h) {
+            $hackathons[$key]['has_joined'] = $this->hackathonModel->hasJoined($h['id'], $currentUserId);
+            $hackathons[$key]['time_info'] = time_remaining($h['deadline']);
         }
 
         $search = $keyword;
@@ -66,7 +67,6 @@ class HackathonController {
         $participants = $this->hackathonModel->getParticipants($id);
 
         if ($role === 'organisateur' || $role === 'admin') {
-            // ORGANISATEUR/ADMIN: sees ALL submissions with full details, votes, comments
             $submissions = $this->submissionModel->getAllByHackathon($id);
             foreach ($submissions as &$s) {
                 $s['has_voted'] = $this->voteModel->hasVoted($s['id'], $currentUserId);
@@ -74,17 +74,14 @@ class HackathonController {
             }
             require __DIR__ . '/../views/hackathon/detail_organisateur.php';
         } else {
-            // CANDIDAT: sees only OWN submission, list of other participants (names only), can vote once
             $mySubmission = $this->submissionModel->getByUserAndHackathon($currentUserId, $id);
             if ($mySubmission) {
                 $mySubmission['comments'] = $this->commentModel->getAllBySubmission($mySubmission['id']);
                 $mySubmission['votes_count'] = $this->voteModel->countBySubmission($mySubmission['id']);
             }
 
-            // Other submissions: only title + author name (no descriptions/links)
             $otherSubmissions = $this->submissionModel->getOthersInHackathon($id, $currentUserId);
 
-            // Check if candidat already voted in this hackathon
             $hasVotedInHackathon = $this->voteModel->hasVotedInHackathon($id, $currentUserId);
             $votedSubmissionId = $this->voteModel->getVotedSubmissionInHackathon($id, $currentUserId);
 
@@ -117,39 +114,51 @@ class HackathonController {
         exit;
     }
 
-    // Create hackathon (organisateur/admin only)
+    // Create hackathon (organisateur/admin only) with duplicate prevention
     public function create() {
         if (!is_organisateur() && !is_admin()) {
             header('Location: index.php?controller=Hackathon&action=list');
             exit;
         }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!csrf_verify()) {
                 require __DIR__ . '/../views/hackathon/create.php';
                 return;
             }
+
             $title = trim($_POST['title'] ?? '');
             $description = trim($_POST['description'] ?? '');
             $category = trim($_POST['category'] ?? '');
             $image = trim($_POST['image'] ?? '') ?: null;
-
             $deadline_type = $_POST['deadline_type'] ?? '48h';
+
             if ($deadline_type === '48h') {
                 $deadline = date('Y-m-d H:i:s', strtotime('+48 hours'));
             } else {
                 $deadline = $_POST['deadline'] ?? date('Y-m-d H:i:s', strtotime('+48 hours'));
             }
 
+            // ✅ Prevent duplicate hackathon by same user
+            $existing = $this->hackathonModel->getByTitleAndCreator($title, $_SESSION['user']['id']);
+            if ($existing) {
+                $_SESSION['error'] = "Vous avez déjà créé un hackathon avec ce titre.";
+                require __DIR__ . '/../views/hackathon/create.php';
+                return;
+            }
+
             if ($title !== '' && $description !== '' && $category !== '') {
                 $this->hackathonModel->create($_SESSION['user']['id'], $title, $description, $category, $deadline, $image);
             }
+
             header('Location: index.php?controller=Hackathon&action=list');
             exit;
         }
+
         require __DIR__ . '/../views/hackathon/create.php';
     }
 
-    // Edit hackathon (owner organisateur or admin)
+    // Edit hackathon
     public function edit() {
         if (!is_organisateur() && !is_admin()) {
             header('Location: index.php?controller=Hackathon&action=list');
@@ -159,12 +168,14 @@ class HackathonController {
             header('Location: index.php?controller=Hackathon&action=list');
             exit;
         }
+
         $id = intval($_GET['id']);
         $hackathon = $this->hackathonModel->getById($id);
         if (!$hackathon) {
             header('Location: index.php?controller=Hackathon&action=list');
             exit;
         }
+
         $isOwner = (int)$hackathon['created_by'] === (int)$_SESSION['user']['id'];
         if (!$isOwner && !is_admin()) {
             header('Location: index.php?controller=Hackathon&action=list');
@@ -176,26 +187,31 @@ class HackathonController {
                 require __DIR__ . '/../views/hackathon/edit.php';
                 return;
             }
+
             $title = trim($_POST['title'] ?? '');
             $description = trim($_POST['description'] ?? '');
             $category = trim($_POST['category'] ?? '');
             $deadline = $_POST['deadline'] ?? $hackathon['deadline'];
             $image = trim($_POST['image'] ?? '') ?: null;
+
             if ($title !== '' && $description !== '' && $category !== '') {
                 $this->hackathonModel->update($id, $title, $description, $category, $deadline, $image);
             }
+
             header('Location: index.php?controller=Hackathon&action=detail&id=' . $id);
             exit;
         }
+
         require __DIR__ . '/../views/hackathon/edit.php';
     }
 
-    // Delete hackathon (owner organisateur or admin)
+    // Delete hackathon
     public function delete() {
         if (!is_organisateur() && !is_admin()) {
             header('Location: index.php?controller=Hackathon&action=list');
             exit;
         }
+
         if (isset($_GET['id'])) {
             $id = intval($_GET['id']);
             $hackathon = $this->hackathonModel->getById($id);
@@ -206,6 +222,7 @@ class HackathonController {
                 }
             }
         }
+
         header('Location: index.php?controller=Hackathon&action=list');
         exit;
     }

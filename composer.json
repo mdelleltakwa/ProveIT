@@ -1,0 +1,6 @@
+{
+    "name": "msi/prove-it",
+    "require": {
+        "twbs/bootstrap": "5.0.2"
+    }
+}

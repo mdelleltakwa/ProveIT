@@ -4,7 +4,6 @@
 <?php require __DIR__ . '/../partials/head.php'; ?>
 <title>Hackathons – ProveIt</title>
 <style>
-/* ── Pagination ── */
 .pi-pagination { display:flex; align-items:center; justify-content:center; gap:.5rem; margin-top:2.5rem; flex-wrap:wrap; }
 .pi-page-btn {
     display:inline-flex; align-items:center; justify-content:center;
@@ -22,8 +21,6 @@
 .pi-page-btn.arrow { font-size:1rem; }
 .pi-page-ellipsis { display:inline-flex; align-items:center; justify-content:center; min-width:2.25rem; height:2.25rem; color:var(--pi-tx3); font-size:.875rem; letter-spacing:.1em; user-select:none; }
 .pi-pagination-info { text-align:center; font-size:.78rem; color:var(--pi-tx3); margin-top:.75rem; }
-
-/* Grid fade on page change */
 .pi-grid.is-loading { opacity:0; transform:translateY(6px); pointer-events:none; }
 .pi-grid { transition:opacity .2s ease, transform .2s ease; }
 </style>
@@ -32,7 +29,6 @@
 <?php require __DIR__ . '/../partials/nav.php'; ?>
 
 <?php
-/* ── Pagination config ── */
 $perPage     = 6;
 $currentPage = max(1, (int)($_GET['page'] ?? 1));
 $totalItems  = count($hackathons ?? []);
