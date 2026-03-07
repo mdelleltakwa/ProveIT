@@ -8,7 +8,13 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 
 // Site
-define('BASE_URL', 'http://localhost/proveit-v2/');
+// define('BASE_URL', 'http://localhost/ProveIT/');
+
+define(
+    'BASE_URL',
+    "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) . "/"
+);
+
 define('SITE_NAME', 'ProveIt');
 
 // Roles

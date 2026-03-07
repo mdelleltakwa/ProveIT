@@ -7,7 +7,8 @@ $userRole = $currentUser['role'] ?? '';
 <nav class="pi-nav">
     <div class="pi-nav-inner">
         <a href="index.php?controller=Hackathon&action=list" class="pi-logo">
-            <span>Prove</span><span class="accent">it</span>
+                            <img src="public/images/logoP.png" width="95" >
+
         </a>
 
         <?php if ($currentUser): ?>
@@ -33,7 +34,7 @@ $userRole = $currentUser['role'] ?? '';
             <?php
             $roleLabel = match($userRole) {
                 'organisateur' => '🎯 Organisateur',
-                'candidat' => '💻 Candidat',
+                'candidat' => '  Candidat',
                 'admin' => '⚙️ Admin',
                 default => $userRole
             };
@@ -49,7 +50,7 @@ $userRole = $currentUser['role'] ?? '';
             </span>
 
             <?php if ($userRole === 'candidat'): ?>
-            <span class="pi-xp-badge"><?= (int)($currentUser['xp'] ?? 0) ?> XP</span>
+            <span class="pi-xp-badge">⚡<?= (int)($currentUser['xp'] ?? 0) ?> XP</span>
             <?php endif; ?>
 
             <?php

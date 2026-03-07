@@ -11,7 +11,7 @@
 - Voir les statistiques (graphiques, classements)
 - **NE PEUT PAS** participer aux hackathons
 
-### 💻 Candidat
+###   Candidat
 - Consulter les hackathons disponibles
 - Rejoindre un hackathon (+20 XP)
 - Soumettre UN projet par hackathon (+30 XP)

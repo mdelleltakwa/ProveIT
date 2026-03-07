@@ -28,7 +28,7 @@ $hasJoined = $hackathon['has_joined'];
         <div class="flex items-center gap-2 mb-2 flex-wrap">
             <span style="display:inline-block;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;background:var(--accent-dim);color:var(--accent);"><?= htmlspecialchars($hackathon['category']) ?></span>
             <span class="pi-timer <?= $timerClass ?>"><?= $timerClass === 'ended' ? '⏹' : '⏱' ?> <?= htmlspecialchars($timeInfo['text']) ?></span>
-            <span style="display:inline-block;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.7rem;font-weight:600;background:var(--green-dim);color:var(--green);">💻 Vue Candidat</span>
+            <span style="display:inline-block;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.7rem;font-weight:600;background:var(--green-dim);color:var(--green);">  Vue Candidat</span>
         </div>
 
         <h1 style="font-size:1.75rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:0.5rem;"><?= htmlspecialchars($hackathon['title']) ?></h1>
