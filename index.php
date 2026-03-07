@@ -1,5 +1,5 @@
 <?php
-// ProveIt - Front Controller
+
 require_once __DIR__ . '/config/config.php';
 
 $controller = $_GET['controller'] ?? 'User';

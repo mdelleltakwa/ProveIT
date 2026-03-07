@@ -12,7 +12,7 @@
 
 <div class="pi-container pi-container-md">
     <div class="pi-page-header animate-in">
-        <h1>🏆 Classe<span class="accent">ment</span></h1>
+        <h1>🏆 Classement</span></h1>
         <p>Les meilleurs candidats classés par XP. Participez, soumettez et récoltez des votes pour monter !</p>
     </div>
 

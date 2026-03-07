@@ -11,7 +11,7 @@
 <?php require __DIR__ . '/../partials/nav.php';
 $roleLabel = match($user['role']) {
     'organisateur' => '🎯 Organisateur',
-    'candidat' => '💻 Candidat',
+    'candidat' => '  Candidat',
     'admin' => '⚙️ Admin',
     default => $user['role']
 };
